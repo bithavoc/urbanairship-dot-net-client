@@ -69,12 +69,24 @@ namespace UrbanAirship
         /// </summary>
         public UrbanAirshipSection Configuration { get; private set; }
 
-
         internal HttpWebResponse HttpPut(string resource)
+        {
+            return HttpPut(resource, null);
+        }
+        internal HttpWebResponse HttpPut(string resource, object jsonPayload)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(BaseUrl + resource));
             request.Credentials = new NetworkCredential(this.Configuration.ApplicationKey, this.Configuration.ApplicationSecret);
             request.Method = "PUT";
+            if (jsonPayload != null)
+            {
+                request.ContentType = "application/json; charset=utf-8";
+                this.pushSerializer.WriteObject(request.GetRequestStream(), jsonPayload);
+            }
+            else
+            {
+                request.ContentLength = 0;
+            }
             return (HttpWebResponse)request.GetResponse();
         }
 
@@ -86,12 +98,11 @@ namespace UrbanAirship
             if (jsonPayload != null)
             {
                 request.ContentType = "application/json; charset=utf-8";
-                
-                MemoryStream mem = new MemoryStream();
-                this.pushSerializer.WriteObject(mem, jsonPayload);
-                mem.Position = 0;
-                var str = new StreamReader(mem).ReadToEnd();
                 this.pushSerializer.WriteObject(request.GetRequestStream(), jsonPayload);
+            }
+            else
+            {
+                request.ContentLength = 0;
             }
             return (HttpWebResponse)request.GetResponse();
         }

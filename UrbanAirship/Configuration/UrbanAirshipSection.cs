@@ -11,14 +11,12 @@ namespace UrbanAirship.Configuration
         public const string ApplicationKeyKey = "applicationKey";
         public const string ApplicationSecretKey = "applicationSecret";
         public const string SectionName = "UrbanAirship";
-        private static UrbanAirshipSection settings
-    = ConfigurationManager.GetSection(SectionName) as UrbanAirshipSection;
 
         public static UrbanAirshipSection Settings
         {
             get
             {
-                return settings;
+                return ConfigurationManager.GetSection(SectionName) as UrbanAirshipSection;
             }
         }
 

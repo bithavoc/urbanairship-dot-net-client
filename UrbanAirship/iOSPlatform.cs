@@ -19,7 +19,7 @@ namespace UrbanAirship
         {
             using (HttpWebResponse response = this.Client.HttpPut("/device_tokens/" + token))
             {
-                if (response.StatusCode != HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Created) // 201 or 200
+                if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created) // 201 or 200
                 {
                     throw new UrbanAirshipException("Unable to register device token");
                 }
