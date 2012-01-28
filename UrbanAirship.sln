@@ -3,7 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanAirship", "UrbanAirship\UrbanAirship.csproj", "{31EE1AC2-AD3B-4FE9-A677-396395671FEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrbanAirshipSamples", "UrbanAirshipSamples\UrbanAirshipSamples.csproj", "{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{783B3481-5235-424B-99AB-05ACA73CCDE7}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,16 +28,6 @@ Global
 		{31EE1AC2-AD3B-4FE9-A677-396395671FEE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{31EE1AC2-AD3B-4FE9-A677-396395671FEE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{31EE1AC2-AD3B-4FE9-A677-396395671FEE}.Release|x86.ActiveCfg = Release|Any CPU
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Debug|x86.ActiveCfg = Debug|x86
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Debug|x86.Build.0 = Debug|x86
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Release|Any CPU.ActiveCfg = Release|x86
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Release|Mixed Platforms.Build.0 = Release|x86
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Release|x86.ActiveCfg = Release|x86
-		{D3AE15FE-CFEE-4486-8181-1B4EB2D61989}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

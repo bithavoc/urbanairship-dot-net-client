@@ -16,7 +16,6 @@ namespace UrbanAirship
     public class Client
     {
         private const string BaseUrl = "https://go.urbanairship.com/api";
-        private DataContractJsonSerializer pushSerializer;
 
         /// <summary>
         /// Creates an instance of the client with the given application key and secret.
@@ -54,9 +53,6 @@ namespace UrbanAirship
 
             // Initialize iOS Client
             this.iOS = new iOSPlatform(this);
-
-            // Intialize the JSON Serializer for Push Messages
-            this.pushSerializer = new DataContractJsonSerializer(typeof(PushNotification));
         }
 
         /// <summary>
@@ -71,9 +67,9 @@ namespace UrbanAirship
 
         internal HttpWebResponse HttpPut(string resource)
         {
-            return HttpPut(resource, null);
+            return HttpPut(resource, null, null);
         }
-        internal HttpWebResponse HttpPut(string resource, object jsonPayload)
+        internal HttpWebResponse HttpPut(string resource, object jsonPayload, DataContractJsonSerializer payloadSerializer)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(BaseUrl + resource));
             request.Credentials = new NetworkCredential(this.Configuration.ApplicationKey, this.Configuration.ApplicationSecret);
@@ -81,7 +77,7 @@ namespace UrbanAirship
             if (jsonPayload != null)
             {
                 request.ContentType = "application/json; charset=utf-8";
-                this.pushSerializer.WriteObject(request.GetRequestStream(), jsonPayload);
+                payloadSerializer.WriteObject(request.GetRequestStream(), jsonPayload);
             }
             else
             {
@@ -90,7 +86,7 @@ namespace UrbanAirship
             return (HttpWebResponse)request.GetResponse();
         }
 
-        internal HttpWebResponse HttpPost(string resource, object jsonPayload)
+        internal HttpWebResponse HttpPost(string resource, object jsonPayload, DataContractJsonSerializer payloadSerializer)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(BaseUrl + resource));
             request.Credentials = new NetworkCredential(this.Configuration.ApplicationKey, this.Configuration.ApplicationSecret);
@@ -98,7 +94,7 @@ namespace UrbanAirship
             if (jsonPayload != null)
             {
                 request.ContentType = "application/json; charset=utf-8";
-                this.pushSerializer.WriteObject(request.GetRequestStream(), jsonPayload);
+                payloadSerializer.WriteObject(request.GetRequestStream(), jsonPayload);
             }
             else
             {
@@ -113,7 +109,23 @@ namespace UrbanAirship
         /// <returns>Returns an instance of <see cref="PushNotification"/></returns>
         public PushNotification CreatePush()
         {
-            return new PushNotification(this);
+            return CreatePush<PushNotification>();
+        }
+
+        /// <summary>
+        /// Create a new Instance of <paramref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">Type of <see cref="PushNotification"/></typeparam>
+        /// <returns>Returns an instance of <paramref name="T"/> ready to be sent</returns>
+        public T CreatePush<T>() where T : PushNotification, new()
+        {
+            T push = new T();
+            push.Client = this;
+
+            // Intialize the JSON Serializer for Push Messages
+            push.serializer = new DataContractJsonSerializer(typeof(T));
+
+            return push;
         }
     }
 }

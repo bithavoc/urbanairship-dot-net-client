@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 using System.Net;
-
+using System.Runtime.Serialization.Json;
 namespace UrbanAirship
 {
     /// <summary>
@@ -13,8 +13,9 @@ namespace UrbanAirship
     [DataContract]
     public class PushNotification
     {
-        public PushNotification(Client client) {
-            this.Client = client;
+        internal DataContractJsonSerializer serializer;
+
+        public PushNotification() {
             this.DeviceTokens = new List<string>();
             this.iOS = new iOSPushDetails();
         }
@@ -23,7 +24,7 @@ namespace UrbanAirship
         /// Client instance to be used as the transport of the notification.
         /// </summary>
         [IgnoreDataMember]
-        public Client Client { get; private set; }
+        public Client Client { get; set; }
 
         /// <summary>
         /// All iOS Device Tokens to Send the Notification.
@@ -42,7 +43,11 @@ namespace UrbanAirship
         /// </summary>
         public void Send()
         {
-            using (HttpWebResponse response = this.Client.HttpPost("/push/", this))
+            if (this.Client == null)
+            {
+                throw new UrbanAirshipException("Can not set a notification without a client");
+            }
+            using (HttpWebResponse response = this.Client.HttpPost("/push/", this, this.serializer))
             {
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
