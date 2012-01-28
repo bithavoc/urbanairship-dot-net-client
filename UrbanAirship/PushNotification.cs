@@ -24,7 +24,7 @@ namespace UrbanAirship
         /// Client instance to be used as the transport of the notification.
         /// </summary>
         [IgnoreDataMember]
-        public Client Client { get; set; }
+        public Client Client { get; internal set; }
 
         /// <summary>
         /// All iOS Device Tokens to Send the Notification.
