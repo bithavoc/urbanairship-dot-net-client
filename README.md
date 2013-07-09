@@ -70,14 +70,14 @@ Create an instance of the notification:
     helloPush notification = client.CreatePush<helloPush>();
     notification.myCustomMessage = "Hello There"
 
-## Author
+## Contributors
 
-* Johan (author). Email: *johan@firebase.co*
+* Johan (author). Email: *johan@heapsource.co*
 * Justin Hyland (contributor) Email: hylander0@hotmail.com
 
 ## MIT License
 
-Copyright (c) 2012 Firebase.co and Contributors - http://www.firebase.co
+Copyright (c) 2013 Heapsource.co and Contributors - http://www.heapsource.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
