@@ -44,6 +44,9 @@
   <ItemGroup>
     <Compile Include="Client.cs" />
     <Compile Include="Configuration\UrbanAirshipSection.cs" />
+    <Compile Include="Extensibility\JsonDictionary.cs" />
+    <Compile Include="GCMPlatform.cs" />
+    <Compile Include="GCMPushDetails.cs" />
     <Compile Include="iOSPlatform.cs" />
     <Compile Include="iOSPushDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
