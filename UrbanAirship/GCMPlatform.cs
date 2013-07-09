@@ -9,22 +9,21 @@ using System.Runtime.Serialization;
 namespace UrbanAirship
 {
     /// <summary>
-    /// Implements the iOS Platform operations.
+    /// Implements the android Platform operations.
     /// </summary>
 
-    public class iOSPlatform : PlatfromBase
+    public class GCMPlatform : PlatfromBase
     {
         internal DataContractJsonSerializer payloadSerializer;
-        internal iOSPlatform(Client client)
+        internal GCMPlatform(Client client)
             : base(client)
         {
-            payloadSerializer = new DataContractJsonSerializer(typeof(iOSRegistrationPayload));
+            payloadSerializer = new DataContractJsonSerializer(typeof(GCMRegistrationPayload));
         }
-
 
         protected override void OnRegisterDevice(string token)
         {
-            using (HttpWebResponse response = this.Client.HttpPut("/device_tokens/" + token))
+            using (HttpWebResponse response = this.Client.HttpPut("/apids/" + token))
             {
                 if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created) // 201 or 200
                 {
@@ -35,8 +34,8 @@ namespace UrbanAirship
 
         protected override void OnRegisterDeviceWithAlias(string token, string alias)
         {
-            iOSRegistrationPayload registration = new iOSRegistrationPayload() { DeviceAlias = alias };
-            using (HttpWebResponse response = this.Client.HttpPut("/device_tokens/" + token, registration, this.payloadSerializer))
+            GCMRegistrationPayload registration = new GCMRegistrationPayload() { DeviceAlias = alias };
+            using (HttpWebResponse response = this.Client.HttpPut("/apids/" + token, registration, this.payloadSerializer))
             {
                 if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created) // 201 or 200
                 {
@@ -45,8 +44,9 @@ namespace UrbanAirship
             }
         }
 
+
         [DataContract]
-        public class iOSRegistrationPayload
+        public class GCMRegistrationPayload
         {
             /// <summary>
             /// Alias Property.
