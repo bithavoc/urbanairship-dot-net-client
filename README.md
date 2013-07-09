@@ -73,7 +73,7 @@ Create an instance of the notification:
 ## Author
 
 * Johan (author). Email: *johan@firebase.co*
-* Justin Hyland (contributor) Email: hylander0@hotmail.com
+* Justin Hyland (contributor) Email: hylander0@hotmail.co*
 
 ## MIT License
 
