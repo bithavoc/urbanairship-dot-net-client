@@ -19,13 +19,34 @@ Contributions are welcome.
       <UrbanAirship applicationKey="APP_KEY" applicationSecret="APP_SECRET"/>
     </configuration>
 
-### Sending a Push Notification
+### Sending a Push Notification iOS
 
     Client client = new Client(); // Uses Application Configuration File
     client.iOS.RegisterDevice("Some Device Token");
     PushNotification notification = client.CreatePush();
     notification.iOS.Alert = "Hello World";
     notification.DeviceTokens.Add("Some Device Token");
+    notification.Send();
+
+### Sending a Push Notification android
+
+    Client client = new Client(); // Uses Application Configuration File
+    client.GCM.RegisterDevice("Some Apid");
+    PushNotification notification = client.CreatePush();
+    notification.GCMPushDetails.Alert = "Hello World";
+    notification.GoogleApids.Add("Some Device Token");
+    notification.Send();
+
+### Sending a Push Notification cross plaftorm using alias
+
+    Client client = new Client(); // Uses Application Configuration File
+    client.GCM.RegisterDevice("Some google Apid", "someAlias@urbanAirshipClient.com");
+	client.iOS.RegisterDevice("Some iOS Device Token", "AnotherAlias@urbanAirshipClient.com");
+    PushNotification notification = client.CreatePush();
+    notification.GCMPushDetails.Alert = "Hello World";
+	notification.iOS.Alert = "Hello World";
+    notification.Aliases.Add("someAlias@urbanAirshipClient.com");
+	notification.Aliases.Add("AnotherAlias@urbanAirshipClient.com");
     notification.Send();
 
 ### Sending Custom Values

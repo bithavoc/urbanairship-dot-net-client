@@ -53,12 +53,20 @@ namespace UrbanAirship
 
             // Initialize iOS Client
             this.iOS = new iOSPlatform(this);
+
+            // Initialize GCM Client
+            this.GCM = new GCMPlatform(this);
         }
 
         /// <summary>
         /// iOS Platform operations.
         /// </summary>
         public iOSPlatform iOS { get; private set; }
+
+        /// <summary>
+        /// Google Cloud messaging Platform operations.
+        /// </summary>
+        public GCMPlatform GCM { get; private set; }
 
         /// <summary>
         /// Configurations for this Client.

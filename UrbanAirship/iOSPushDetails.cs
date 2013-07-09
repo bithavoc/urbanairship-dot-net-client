@@ -14,7 +14,7 @@ namespace UrbanAirship
     {
         internal iOSPushDetails()
         {
-
+            NotificationMetaData = new Extensibility.JsonDictionary<string, object>();
         }
 
         /// <summary>
@@ -34,5 +34,11 @@ namespace UrbanAirship
         /// </summary>
         [DataMember(Name="sound", IsRequired= false, EmitDefaultValue = false)]
         public string Sound { get; set; }
+
+        /// <summary>
+        /// iOS extra , used for passing Meta data with the push
+        /// </summary>
+        [DataMember(Name = "ex", IsRequired = false, EmitDefaultValue = false)]
+        public Extensibility.JsonDictionary<string, object> NotificationMetaData { get; set; }
     }
 }
