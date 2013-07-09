@@ -43,7 +43,7 @@ Contributions are welcome.
     client.GCM.RegisterDevice("Some google Apid", "someAlias@urbanAirshipClient.com");
 	client.iOS.RegisterDevice("Some iOS Device Token", "AnotherAlias@urbanAirshipClient.com");
     PushNotification notification = client.CreatePush();
-    notification.GCMPushDetails.Alert = "Hello World";
+    notification.GoogleGCMDetails.Alert = "Hello World";
 	notification.iOS.Alert = "Hello World";
     notification.Aliases.Add("someAlias@urbanAirshipClient.com");
 	notification.Aliases.Add("AnotherAlias@urbanAirshipClient.com");
@@ -73,6 +73,7 @@ Create an instance of the notification:
 ## Author
 
 * Johan (author). Email: *johan@firebase.co*
+* Justin Hyland (contributor) Email: hylander0@hotmail.com
 
 ## MIT License
 
