@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Urbanairship-dot-net-client by bithavoc</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Urbanairship-dot-net-client</h1>
+        <h2>UrbanAirship.com API Client for .NET</h2>
+        <a href="https://github.com/bithavoc/urbanairship-dot-net-client" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="urbanairship-net-client" class="anchor" href="#urbanairship-net-client"><span class="octicon octicon-link"></span></a>UrbanAirship .NET Client</h1>
+
+<p>This is an un-official <a href="http://en.wikipedia.org/wiki/Common_Language_Infrastructure">CLI</a> client for the <a href="http://urbanairship.com/">UrbanAirship</a> platform.</p>
+
+<h2>
+<a name="supported-api" class="anchor" href="#supported-api"><span class="octicon octicon-link"></span></a>Supported API</h2>
+
+<p>UrbanAirship supports many platforms including iOS, Android and RIM. However, this library only supports iOS at this time.</p>
+
+<p>Contributions are welcome.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h3>
+
+<pre><code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;configuration&gt;
+  &lt;configSections&gt;
+    &lt;section name="UrbanAirship" type="UrbanAirship.Configuration.UrbanAirshipSection, UrbanAirship" /&gt;
+  &lt;/configSections&gt;
+  &lt;UrbanAirship applicationKey="APP_KEY" applicationSecret="APP_SECRET"/&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+<h3>
+<a name="sending-a-push-notification-ios" class="anchor" href="#sending-a-push-notification-ios"><span class="octicon octicon-link"></span></a>Sending a Push Notification iOS</h3>
+
+<pre><code>Client client = new Client(); // Uses Application Configuration File
+client.iOS.RegisterDevice("Some Device Token");
+PushNotification notification = client.CreatePush();
+notification.iOS.Alert = "Hello World";
+notification.DeviceTokens.Add("Some Device Token");
+notification.Send();
+</code></pre>
+
+<h3>
+<a name="sending-a-push-notification-android" class="anchor" href="#sending-a-push-notification-android"><span class="octicon octicon-link"></span></a>Sending a Push Notification android</h3>
+
+<pre><code>Client client = new Client(); // Uses Application Configuration File
+client.GCM.RegisterDevice("Some Apid");
+PushNotification notification = client.CreatePush();
+notification.GCMPushDetails.Alert = "Hello World";
+notification.GoogleApids.Add("Some Device Token");
+notification.Send();
+</code></pre>
+
+<h3>
+<a name="sending-a-push-notification-cross-plaftorm-using-alias" class="anchor" href="#sending-a-push-notification-cross-plaftorm-using-alias"><span class="octicon octicon-link"></span></a>Sending a Push Notification cross plaftorm using alias</h3>
+
+<pre><code>Client client = new Client(); // Uses Application Configuration File
+client.GCM.RegisterDevice("Some google Apid", "someAlias@urbanAirshipClient.com");
+client.iOS.RegisterDevice("Some iOS Device Token", "AnotherAlias@urbanAirshipClient.com");
+PushNotification notification = client.CreatePush();
+notification.GoogleGCMDetails.Alert = "Hello World";
+notification.iOS.Alert = "Hello World";
+notification.Aliases.Add("someAlias@urbanAirshipClient.com");
+notification.Aliases.Add("AnotherAlias@urbanAirshipClient.com");
+notification.Send();
+</code></pre>
+
+<h3>
+<a name="sending-custom-values" class="anchor" href="#sending-custom-values"><span class="octicon octicon-link"></span></a>Sending Custom Values</h3>
+
+<p>In order to send custom values as part of the notification, you need to create a sub class of PushNotification and decorate it with DataContract and DataMember attributes.</p>
+
+<pre><code>[DataContract]
+class helloPush : PushNotification
+{
+    [DataMember]
+    public string myCustomMessage
+    {
+        get;
+        set;
+    }
+}
+</code></pre>
+
+<p>Create an instance of the notification:</p>
+
+<pre><code>helloPush notification = client.CreatePush&lt;helloPush&gt;();
+notification.myCustomMessage = "Hello There"
+</code></pre>
+
+<h2>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
+
+<ul>
+<li><a href="im@bithavoc.io">Bithavoc (author)</a></li>
+<li><a href="hylander0@hotmail.com">Justin Hyland </a></li>
+</ul><h2>
+<a name="mit-license" class="anchor" href="#mit-license"><span class="octicon octicon-link"></span></a>MIT License</h2>
+
+<p>Copyright (c) 2012, 2014 Bithavoc and Contributors - <a href="http://bithavoc.io">http://bithavoc.io</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/bithavoc/urbanairship-dot-net-client/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/bithavoc/urbanairship-dot-net-client/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/bithavoc/urbanairship-dot-net-client"></a> is maintained by <a href="https://github.com/bithavoc">bithavoc</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-54890957-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
