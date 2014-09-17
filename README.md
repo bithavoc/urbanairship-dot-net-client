@@ -72,12 +72,12 @@ Create an instance of the notification:
 
 ## Contributors
 
-* Johan (author). Email: *johan@heapsource.com
-* Justin Hyland (contributor) Email: hylander0@hotmail.com
+* [Bithavoc (author)](im@bithavoc.io)
+* [Justin Hyland ](hylander0@hotmail.com)
 
 ## MIT License
 
-Copyright (c) 2012, 2013 Heapsource.com and Contributors - http://www.heapsource.com
+Copyright (c) 2012, 2014 Bithavoc and Contributors - http://bithavoc.io
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
